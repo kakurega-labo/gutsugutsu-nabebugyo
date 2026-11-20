@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>ぐつぐつ鍋奉行</title>
+<meta name="description" content="60秒。煮え時間のちがう具を、家族の取り皿に食べごろで配る。春菊は一瞬、大根は長い。誰かが勝手に肉を入れる。">
+<meta name="theme-color" content="#6B4226">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="canonical" href="https://gutsugutsu-nabebugyo.pages.dev/">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://gutsugutsu-nabebugyo.pages.dev/">
+<meta property="og:title" content="ぐつぐつ鍋奉行">
+<meta property="og:description" content="60秒。煮え時間のちがう具を、家族の取り皿に食べごろで配る。春菊は一瞬、大根は長い。誰かが勝手に肉を入れる。">
+<meta property="og:image" content="https://gutsugutsu-nabebugyo.pages.dev/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ぐつぐつ鍋奉行。全員の取り皿に、食べごろを。">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Yusei+Magic&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--s:1;--ink:#2A1C14;--cream:#FFF6E3;--red:#D2492F;--pot:#3A2C27;--gold:#F2B84B;--green:#4E9A5B}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;height:100%;background:#1a100b;overflow:hidden;overscroll-behavior:none}
+body{font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Yu Gothic",sans-serif;color:var(--ink);user-select:none;-webkit-user-select:none}
+button{font:inherit;color:inherit;touch-action:manipulation;cursor:pointer;border:0}
+.yu{font-family:"Yusei Magic","Zen Maru Gothic",sans-serif;font-weight:400}
+#app{position:fixed;top:0;left:50%;transform:translateX(-50%);width:min(100vw,500px);height:100vh;background:#6B4226;overflow:hidden}
+#cv{position:absolute;inset:0;width:100%;height:100%;touch-action:none;display:block}
+#hud{position:absolute;left:calc(var(--s)*12px);right:calc(var(--s)*100px);top:calc(var(--s)*10px);display:flex;align-items:center;gap:calc(var(--s)*8px);pointer-events:none;color:var(--cream);font-weight:900}
+#hud .n{font-size:calc(var(--s)*24px);min-width:calc(var(--s)*34px);text-align:right;font-variant-numeric:tabular-nums}
+#hud .bar{flex:1;height:calc(var(--s)*10px);background:rgba(0,0,0,.35);border-radius:99px;overflow:hidden}
+#hud .bar i{display:block;height:100%;width:100%;background:var(--gold);border-radius:99px;transform-origin:left}
+#hud .sc{font-size:calc(var(--s)*17px);min-width:calc(var(--s)*62px);text-align:right;font-variant-numeric:tabular-nums}
+#topbtn{position:absolute;right:calc(var(--s)*8px);top:calc(var(--s)*8px);display:flex;gap:calc(var(--s)*5px);z-index:30}
+#topbtn button{background:rgba(255,246,227,.92);border:2px solid var(--ink);border-radius:999px;height:calc(var(--s)*28px);padding:0 calc(var(--s)*8px);font-weight:700;font-size:calc(var(--s)*11px)}
+.scr{position:absolute;inset:0;z-index:20;display:flex;flex-direction:column;justify-content:flex-end}
+#title{background:#6B4226;display:block}
+#tcv{position:absolute;inset:0;width:100%;height:100%;display:block}
+#tbtns{position:absolute;left:0;right:0;bottom:calc(var(--s)*26px);display:flex;flex-direction:column;align-items:center;gap:calc(var(--s)*10px)}
+#tbtns button{width:min(calc(var(--s)*250px),calc(100% - 48px))}
+#bHow{height:calc(var(--s)*44px);border-radius:calc(var(--s)*14px);background:var(--cream);border:2px solid var(--ink)!important;font-size:calc(var(--s)*18px);box-shadow:0 calc(var(--s)*3px) 0 #2A1C14}
+#bHow:active{transform:translateY(calc(var(--s)*2px));box-shadow:0 calc(var(--s)*1px) 0 #2A1C14}
+/* 遊び方（タイトルから開く） */
+#howto{position:absolute;inset:0;z-index:5;background:rgba(26,16,11,.62);display:flex;align-items:center;justify-content:center;padding:calc(var(--s)*16px)}
+#howto .card{background:var(--cream);border-radius:calc(var(--s)*20px);box-shadow:0 calc(var(--s)*6px) 0 var(--red);width:min(100%,calc(var(--s)*350px));max-height:100%;overflow-y:auto;padding:calc(var(--s)*16px) calc(var(--s)*16px) calc(var(--s)*14px);display:flex;flex-direction:column;gap:calc(var(--s)*10px)}
+#howto h2{margin:0;text-align:center;color:var(--red);font-size:calc(var(--s)*26px)}
+#howto ol{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:calc(var(--s)*7px);font-weight:700;font-size:calc(var(--s)*13.5px);line-height:1.4}
+#howto li{display:flex;gap:calc(var(--s)*8px);align-items:flex-start}
+#howto li i{font-style:normal;flex:none;width:calc(var(--s)*22px);height:calc(var(--s)*22px);line-height:calc(var(--s)*22px);text-align:center;background:var(--ink);color:var(--gold);border-radius:50%;font-weight:900;font-size:calc(var(--s)*12px)}
+#howto li small{display:block;font-size:calc(var(--s)*11.5px);opacity:.7}
+#howto h3{margin:calc(var(--s)*2px) 0 0;font-size:calc(var(--s)*13px);font-weight:900}
+#howto h3 small{font-weight:700;opacity:.65;font-size:calc(var(--s)*11px)}
+#foods{display:grid;grid-template-columns:repeat(3,1fr);gap:calc(var(--s)*6px)}
+#foods>div{background:#F3E4C4;border-radius:calc(var(--s)*12px);padding:calc(var(--s)*6px) calc(var(--s)*2px);display:flex;flex-direction:column;align-items:center;text-align:center;gap:calc(var(--s)*2px)}
+#foods canvas{width:calc(var(--s)*32px);height:calc(var(--s)*32px);flex:none}
+#foods b{display:block;font-size:calc(var(--s)*12.5px);font-weight:900;line-height:1.2}
+#foods span{display:block;font-size:calc(var(--s)*12px);font-weight:900;color:var(--red)}
+#foods em{display:block;font-style:normal;font-size:calc(var(--s)*10px);font-weight:700;opacity:.6}
+#howto .tip{font-size:calc(var(--s)*11.5px);font-weight:700;opacity:.75;text-align:center;margin:0}
+#bHowClose{height:calc(var(--s)*44px);border-radius:calc(var(--s)*12px);background:var(--ink);color:var(--cream);font-weight:900;font-size:calc(var(--s)*15px);flex:none}
+.hero{flex:1;min-height:0;position:relative}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.sheet{background:var(--cream);border-radius:calc(var(--s)*22px) calc(var(--s)*22px) 0 0;padding:calc(var(--s)*18px) calc(var(--s)*20px);display:flex;flex-direction:column;gap:calc(var(--s)*10px);box-shadow:0 -6px 0 var(--red);max-height:100%;overflow-y:auto}
+.big{height:calc(var(--s)*52px);border-radius:calc(var(--s)*14px);background:var(--red);color:#fff;font-size:calc(var(--s)*22px);box-shadow:0 calc(var(--s)*4px) 0 #96301d;flex:none}
+.big:active{transform:translateY(calc(var(--s)*3px));box-shadow:0 calc(var(--s)*1px) 0 #96301d}
+#result{background:#6B4226}
+#result .sheet{gap:calc(var(--s)*8px);padding-top:calc(var(--s)*14px)}
+#result h2{margin:0;font-size:calc(var(--s)*14px);font-weight:900}
+.rhead{display:flex;justify-content:space-between;align-items:center}
+#bTitle{background:none;font-weight:900;font-size:calc(var(--s)*12.5px);text-decoration:underline;opacity:.7;padding:calc(var(--s)*4px) 0}
+a.sub{display:flex;align-items:center;justify-content:center;text-decoration:none;color:var(--ink);flex:1}
+#shareView{position:absolute;inset:0;z-index:60;background:rgba(26,16,11,.88);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:16px}
+#shareView img{width:100%;max-width:480px;border-radius:10px;-webkit-touch-callout:default;user-select:auto;-webkit-user-select:auto}
+#shareView p{margin:0;color:var(--cream);font-weight:700;font-size:13px}
+#bShareClose{height:42px;padding:0 28px;border-radius:12px;background:var(--cream);font-weight:900}
+#rank{font-size:calc(var(--s)*30px);color:var(--red);line-height:1.15}
+#total{font-size:calc(var(--s)*44px);line-height:1}#total small{font-size:.38em}
+#stats{display:grid;grid-template-columns:repeat(5,1fr);gap:calc(var(--s)*5px);text-align:center;font-weight:900}
+#stats div{background:#F3E4C4;border-radius:calc(var(--s)*10px);padding:calc(var(--s)*5px) 0;font-size:calc(var(--s)*10.5px);white-space:nowrap}
+#stats b{display:block;font-size:calc(var(--s)*19px)}
+#voice{font-weight:700;font-size:calc(var(--s)*13px);line-height:1.4;background:#fff;border-radius:calc(var(--s)*10px);padding:calc(var(--s)*6px) calc(var(--s)*10px);display:flex;flex-direction:column;gap:calc(var(--s)*3px)}
+#voice .vl{display:flex;align-items:center;gap:calc(var(--s)*6px)}
+#voice canvas{width:calc(var(--s)*26px);height:calc(var(--s)*26px);flex:none;margin-right:calc(var(--s)*-3px)}
+.two{display:flex;gap:calc(var(--s)*8px)}.two button{flex:1}
+.sub{height:calc(var(--s)*40px);border-radius:calc(var(--s)*12px);background:#fff;border:2px solid var(--ink)!important;font-weight:900;font-size:calc(var(--s)*14px)}
+#tune{position:absolute;right:calc(var(--s)*8px);top:calc(var(--s)*42px);z-index:40;background:#fff;border:2px solid var(--ink);border-radius:12px;padding:10px 12px;font-size:12.5px;font-weight:700;display:flex;flex-direction:column;gap:8px;width:236px}
+#tune label{display:flex;justify-content:space-between;align-items:center;gap:8px}
+#tune input[type=range]{width:100px}
+#tune hr{border:0;border-top:1px dashed #C9B48C;margin:0}
+</style>
+</head>
+<body>
+<div id="app">
+  <canvas id="cv"></canvas>
+  <div id="hud" hidden><span class="n" id="hT">60</span><span class="bar"><i id="hB"></i></span><span class="sc" id="hS">0点</span></div>
+  <div id="topbtn"><button id="bSnd">音 ON</button></div>
+
+  <div id="title" class="scr">
+    <canvas id="tcv"></canvas>
+    <div id="tbtns">
+      <button class="big yu" id="bStart">いただきます</button>
+      <button class="yu" id="bHow">遊び方</button>
+    </div>
+    <div id="howto" hidden>
+      <div class="card">
+        <h2 class="yu">遊び方</h2>
+        <ol>
+          <li><i>1</i><div>下の具を、はしで鍋までスライドして入れる</div></li>
+          <li><i>2</i><div>食べごろになったら、ほしい人の皿へ運ぶ<small>ふきだしの大きい絵が「いまほしい具」、小さい絵が「次」</small></div></li>
+          <li><i>3</i><div>早いと固い。遅いとくたくた<small>じいちゃんはくたくたも好き</small></div></li>
+          <li><i>4</i><div>鍋から出したら戻せない<small>はしで持ったままだと、3秒で冷める</small></div></li>
+          <li><i>5</i><div>ときどき、誰かが勝手に肉を入れる</div></li>
+        </ol>
+        <h3>具と、食べごろになるまで</h3>
+        <div id="foods"></div>
+        <p class="tip">大根は時間がかかる。「次」に見えたら、先に入れておこう</p>
+        <button id="bHowClose">とじる</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="result" class="scr" hidden>
+    <div class="hero"><canvas id="rcv"></canvas></div>
+    <div class="sheet">
+      <div class="rhead"><h2>ごちそうさまでした</h2><button id="bTitle">タイトルへ</button></div>
+      <div id="rank" class="yu"></div>
+      <div id="total" class="yu"></div>
+      <div id="stats"></div>
+      <div id="voice"></div>
+      <button class="big yu" id="bAgain">おかわり</button>
+      <div class="two"><button class="sub" id="bShare">画像を共有</button><a class="sub" id="bX" target="_blank" rel="noopener">Xにポスト</a></div>
+    </div>
+  </div>
+
+  <div id="shareView" hidden>
+    <img id="shareImg" alt="ぐつぐつ鍋奉行の結果">
+    <p>長押しで画像を保存できます</p>
+    <button id="bShareClose">とじる</button>
+  </div>
+</div>
+
+<script>
+'use strict';
+/* ============================================================
+   ぐつぐつ鍋奉行　試作 v2
+   芯：煮え時間のちがう具を、ほしい人の取り皿へ食べごろで配る。
+   「いつ押すか」より「何を先に入れ、どれを先に見るか」（段取り）を問う。
+   食べごろの幅は広め。大根は18秒かかるので、先に入れておく。
+   v2.7：結果画面のひとこと質問と試遊の記録の表示を外した（log は数えるだけ残してある。画面には出ない）。
+   ============================================================ */
+const $=s=>document.querySelector(s);
+const cv=$('#cv'),c=cv.getContext('2d');
+if(!CanvasRenderingContext2D.prototype.roundRect){CanvasRenderingContext2D.prototype.roundRect=function(x,y,w,h){this.rect(x,y,w,h)}}
+const rnd=(a,b)=>a+Math.random()*(b-a),clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const K='#3A2A22';
+
+/* ---------- 具（6種）ready=食べごろになる秒 over=煮えすぎになる秒 w=ほしがられやすさ ---------- */
+const FOOD={
+  shungiku:{name:'春菊',ready:1.5,over:5.5,w:2,cols:['#56B356','#2F8F49','#55632E']},
+  niku:{name:'肉',ready:4,over:10,w:3,cols:['#E8546B','#C9A58F','#7D6A5F']},
+  tofu:{name:'豆腐',ready:6,over:26,w:2,cols:['#FFFFFF','#FBF2D8','#D9C48F']},
+  hakusai:{name:'白菜',ready:8,over:20,w:2,cols:['#A9D36B','#C4CF74','#8C8548']},
+  shiitake:{name:'しいたけ',ready:10,over:24,w:2,cols:['#9A7350','#6E4A30','#40291C']},
+  daikon:{name:'大根',ready:18,over:40,w:1.5,cols:['#FBFBF3','#EBD7A2','#B9975A']}
+};
+const FIDS=Object.keys(FOOD);
+const tune={ring:true,meat:true,speed:1,time:60,bot:false};
+const hex=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+function mix3(cols,k,o){const a=hex(cols[0]),b=hex(cols[1]),d=hex(cols[2]);return'rgb('+a.map((v,i)=>{const m=v+(b[i]-v)*k;return Math.round(m+(d[i]-m)*o)}).join(',')+')'}
+
+/* ---------- 絵：具（真上から）k=0生→1食べごろ　o=0→1煮えすぎ ---------- */
+function drawFood(g,id,x,y,r,k,o){
+  const f=FOOD[id],col=mix3(f.cols,k,o);
+  g.save();g.translate(x,y);g.lineJoin=g.lineCap='round';g.lineWidth=Math.max(1,r*.09);g.strokeStyle=K;
+  const circ=(cx,cy,rr,fl,st)=>{g.beginPath();g.arc(cx*r,cy*r,rr*r,0,7);if(fl){g.fillStyle=fl;g.fill()}if(st){g.strokeStyle=st;g.stroke()}};
+  switch(id){
+    case'daikon':circ(0,0,.92,col,K);circ(0,0,.6,null,k>.9?'rgba(150,105,40,.4)':'rgba(190,190,170,.7)');
+      g.strokeStyle=k>.9?'rgba(150,105,40,.3)':'rgba(190,190,170,.5)';for(let i=0;i<6;i++){const a=i*Math.PI/3;g.beginPath();g.moveTo(Math.cos(a)*r*.15,Math.sin(a)*r*.15);g.lineTo(Math.cos(a)*r*.5,Math.sin(a)*r*.5);g.stroke()}break;
+    case'hakusai':g.beginPath();g.ellipse(0,0,r*.98,r*.74,0,0,7);g.fillStyle=col;g.fill();g.stroke();
+      g.beginPath();g.ellipse(0,r*.14,r*.62,r*.5,0,0,7);g.fillStyle=mix3(['#FAFAF0','#F2E8B8','#C9B67C'],k,o);g.fill();
+      g.strokeStyle='rgba(120,130,70,.5)';g.beginPath();g.moveTo(0,r*.55);g.lineTo(0,-r*.3);g.moveTo(0,r*.2);g.lineTo(-r*.3,-r*.1);g.moveTo(0,r*.2);g.lineTo(r*.3,-r*.1);g.stroke();break;
+    case'tofu':g.beginPath();g.roundRect(-r*.8,-r*.8,r*1.6,r*1.6,r*.18);g.fillStyle=col;g.fill();g.stroke();
+      g.strokeStyle='rgba(255,255,255,.8)';g.beginPath();g.moveTo(-r*.5,-r*.5);g.lineTo(r*.1,-r*.5);g.stroke();
+      if(o>.4){g.strokeStyle=K;g.beginPath();g.moveTo(-r*.2,-r*.8);g.lineTo(r*.05,-r*.1);g.lineTo(-r*.3,r*.3);g.lineTo(r*.1,r*.8);g.stroke()}break;
+    case'shiitake':circ(0,0,.9,col,K);g.strokeStyle=mix3(['#F6ECD8','#F1DDB4','#9C8660'],k,o);g.lineWidth=r*.17;
+      for(let i=0;i<3;i++){const a=i*Math.PI/3+.5;g.beginPath();g.moveTo(Math.cos(a)*r*.48,Math.sin(a)*r*.48);g.lineTo(-Math.cos(a)*r*.48,-Math.sin(a)*r*.48);g.stroke()}break;
+    case'niku':{const s=1-.1*k-.16*o;g.beginPath();g.ellipse(0,0,r*1.02*s,r*.68*s,-.2,0,7);g.fillStyle=col;g.fill();g.stroke();
+      g.strokeStyle=`rgba(255,255,255,${.85-.4*k})`;g.lineWidth=r*.13;g.beginPath();g.moveTo(-r*.6*s,-r*.05);g.quadraticCurveTo(-r*.2*s,-r*.45*s,r*.1*s,-r*.05);g.quadraticCurveTo(r*.35*s,r*.3*s,r*.65*s,-r*.1);g.stroke();
+      g.beginPath();g.moveTo(-r*.4*s,r*.3*s);g.quadraticCurveTo(0,r*.1*s,r*.3*s,r*.4*s);g.stroke();break}
+    case'shungiku':{const s=1-.14*k-.2*o;g.strokeStyle=K;g.lineWidth=r*.12;g.beginPath();g.moveTo(0,r*.9*s);g.lineTo(0,0);g.stroke();g.lineWidth=r*.08;
+      [[0,-.5],[-.5,-.15],[.5,-.15],[-.32,.35],[.32,.35]].forEach(p=>circ(p[0]*s,p[1]*s,.4*s,col,K));circ(0,-.05*s,.3*s,mix3(['#7BCB6B','#3FA055','#66733A'],k,o));break}
+  }
+  g.restore();
+}
+/* ---------- 絵：顔 mood 1=うれしい -1=しょんぼり ---------- */
+function drawFace(g,i,x,y,r,mood){
+  g.save();g.translate(x,y);g.lineCap='round';g.lineWidth=r*.1;g.strokeStyle=K;
+  const circ=(cx,cy,rr,fl,st)=>{g.beginPath();g.arc(cx*r,cy*r,rr*r,0,7);if(fl){g.fillStyle=fl;g.fill()}if(st){g.strokeStyle=st;g.stroke()}};
+  const skin=['#F5CFA6','#F8D9B8','#FBDDBD','#EEC59A'][i];
+  if(i===1){circ(0,-.95,.38,'#4A342B',K)}                       // おだんご
+  circ(0,0,1,skin,K);
+  g.fillStyle=['#33261F','#4A342B','#2A1C14','#CFCFCF'][i];g.beginPath();
+  if(i===0){g.arc(0,0,r,Math.PI*1.08,Math.PI*1.92);g.closePath()}     // 父：短い髪
+  else if(i===1){g.arc(0,0,r,Math.PI*1.0,Math.PI*2);g.quadraticCurveTo(0,-r*.5,-r,0)}
+  else if(i===2){g.arc(0,0,r,Math.PI*.95,Math.PI*2.05);g.lineTo(r*.3,-r*.3);g.lineTo(-r*.1,-r*.55);g.lineTo(-r*.4,-r*.25);g.closePath()}
+  else{g.arc(-r*.85,-r*.1,r*.22,0,7);g.arc(r*.85,-r*.1,r*.22,0,7)}                 // じいちゃん：横だけ
+  g.fill();g.stroke();
+  circ(-.5,.35,.17,'rgba(240,120,110,.45)');circ(.5,.35,.17,'rgba(240,120,110,.45)');
+  g.strokeStyle=K;g.fillStyle=K;
+  if(mood>0){for(const sx of[-1,1]){g.beginPath();g.arc(sx*r*.36,r*.08,r*.16,Math.PI*1.1,Math.PI*1.9);g.stroke()}g.beginPath();g.arc(0,r*.3,r*.3,.1,Math.PI-.1);g.closePath();g.fillStyle='#B8432F';g.fill();g.stroke()}
+  else if(mood<0){for(const sx of[-1,1]){g.beginPath();g.moveTo(sx*r*.5,r*-.05);g.lineTo(sx*r*.22,r*.1);g.stroke()}g.beginPath();g.arc(0,r*.62,r*.22,Math.PI*1.15,Math.PI*1.85);g.stroke()}
+  else{circ(-.36,.05,.09,K);circ(.36,.05,.09,K);g.beginPath();g.arc(0,r*.38,r*.16,.2,Math.PI-.2);g.stroke()}
+  if(i===0){g.lineWidth=r*.08;g.strokeStyle=K;for(const sx of[-1,1]){g.beginPath();g.roundRect(sx*r*.36-r*.24,-r*.14,r*.48,r*.38,r*.1);g.stroke()}g.beginPath();g.moveTo(-r*.12,r*.02);g.lineTo(r*.12,r*.02);g.stroke()}
+  if(i===3){g.fillStyle='#E8E8E8';g.strokeStyle=K;g.beginPath();g.ellipse(0,r*.3,r*.34,r*.11,0,0,7);g.fill();g.stroke()}
+  g.restore();
+}
+
+/* ---------- 画面の大きさ ---------- */
+let W=390,H=700,S=1,DPR=1,PX,PY,PR,FR,trayY,trayH,eat=[],slots=[];
+const NAMES=['父','母','子','じいちゃん'];
+/* 席：四すみに家族4人。左上=父、右上=母、左下=子、右下=じいちゃん（遊ぶ人は姿のない配り役） */
+const SEATS=[{q:[-1,-1],face:0},{q:[1,-1],face:1},{q:[-1,1],face:2},{q:[1,1],face:3}];
+function fit(){
+  const vv=window.visualViewport;
+  const h=Math.min(window.innerHeight,vv?vv.height:1e9,document.documentElement.clientHeight||1e9);
+  const app=$('#app');app.style.height=h+'px';W=app.clientWidth;H=h;S=Math.min(W/390,H/700);
+  document.documentElement.style.setProperty('--s',S);DPR=Math.min(2.5,window.devicePixelRatio||1);
+  cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);
+  trayH=104*S;trayY=H-trayH;
+  const top=52*S,mid=(top+trayY)/2;
+  PR=Math.min(W*.29,(trayY-top)*.2);PX=W/2;PY=mid;FR=PR*.215;
+  const dx=Math.min(W*.33,PR+62*S),dy=Math.min(PR+78*S,trayY-PY-99*S);   // 下の2人のふきだしと具の皿のあいだを 14px あける（上も同じ幅）
+  SEATS.forEach((st,i)=>{const e=eat[i]||(eat[i]={i:st.face});e.sx=st.q[0];e.sy=st.q[1];e.x=PX+st.q[0]*dx;e.y=PY+st.q[1]*dy});
+  slots=[[0,0]];for(let i=0;i<6;i++){const a=i*Math.PI/3+Math.PI/6;slots.push([Math.cos(a)*PR*.58,Math.sin(a)*PR*.58])}
+}
+
+/* ---------- 音 ---------- */
+let AC=null,noiseBuf=null,sndOn=true;try{sndOn=localStorage.getItem('nabe-snd')!=='0'}catch(e){}
+function audioInit(){if(AC)return;try{AC=new (window.AudioContext||window.webkitAudioContext)();noiseBuf=AC.createBuffer(1,AC.sampleRate*.5,AC.sampleRate);const d=noiseBuf.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1}catch(e){AC=null}}
+function tone(f,d,v,type,f2,delay){if(!AC||!sndOn||demo)return;const t=AC.currentTime+(delay||0),o=AC.createOscillator(),g=AC.createGain();o.type=type||'sine';o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0008,t+d);o.connect(g).connect(AC.destination);o.start(t);o.stop(t+d+.02)}
+function nz(d,v,ft,ff,delay){if(!AC||!sndOn||demo)return;const t=AC.currentTime+(delay||0),s=AC.createBufferSource(),fl=AC.createBiquadFilter(),g=AC.createGain();s.buffer=noiseBuf;fl.type=ft;fl.frequency.value=ff;g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0008,t+d);s.connect(fl).connect(g).connect(AC.destination);s.start(t,Math.random()*.3,d+.02)}
+const SND={
+  plop(){tone(520,.12,.25,'sine',190);nz(.08,.2,'bandpass',1400)},
+  lift(){tone(700,.05,.12,'triangle')},
+  good(){tone(880,.1,.22,'triangle');tone(1320,.2,.22,'triangle',0,.08)},
+  ok(){tone(660,.12,.18,'triangle')},
+  bad(){tone(210,.2,.16,'triangle',150)},
+  full(){tone(180,.08,.14,'square')},
+  shout(){tone(500,.06,.14,'square');tone(620,.08,.14,'square',0,.08)},
+  ready(){tone(1568,.08,.05,'sine')},
+  tick(){tone(1000,.04,.1,'square')},
+  bub(){tone(rnd(180,340),.05,.03,'sine',rnd(380,520))},
+  end(){[2093,2637,3136].forEach((f,i)=>tone(f,.9,.14,'sine',0,i*.02))}
+};
+
+/* ---------- 状態 ---------- */
+let phase='title',demo=true,T=0,timeLeft=60,score=0,pot=[],sel=null,selPos=[0,0],drag=null,pops=[],bubbles=[],meatT=0,botT=0,endT=0,lockUntil=0,stat=null,lastSec=99,shout=null,potShake=0,usedHint=0;
+/* 試遊の記録（人の手だけ数える。自動で配るは数えない）
+   drag/tap=運び方　ahead=「次」にしか出ていない具を先に入れた回数（うち大根）
+   wait=食べごろになってから出すまでの秒（ほしい人へ出せた皿）　full=鍋がいっぱいで入らなかった回数 */
+let log=null,playN=0,endPot=[],jiiSaid=false;
+/* じいちゃん（顔の絵 3）はくたくたが好き（v2.10）：くたくたを出しても ±0「やわらかくていい」。冷めたのはいや */
+const JII=3,isJii=e=>e.i===JII;
+function pickWant(not){let tot=0;const ids=FIDS.filter(i=>i!==not);ids.forEach(i=>tot+=FOOD[i].w);let r=Math.random()*tot;for(const i of ids){r-=FOOD[i].w;if(r<=0)return i}return ids[0]}
+function reset(){
+  pot=[];sel=null;drag=null;add=null;pops=[];score=0;timeLeft=tune.time;meatT=rnd(9,12);botT=0;endT=0;lastSec=99;shout=null;
+  stat={good:0,ok:0,raw:0,over:0,cold:0,left:0,meat:0,jii:0};jiiSaid=false;
+  log={drag:0,tap:0,ahead:0,aheadDaikon:0,daikonFirst:null,wait:[],full:0,put:0,bot:tune.bot};
+  // 最初のほしいものは、すぐ煮えるものから。大根は「次」に出して先に入れられるようにする
+  const first=['niku','shungiku','tofu','hakusai'].sort(()=>Math.random()-.5);
+  eat.forEach((e,i)=>{e.want=first[i];e.next=i===0?'daikon':pickWant(e.want);e.busy=0;e.plate=null;e.mood=0;e.moodT=0;e.good=0;e.ate=0;e.raw=0;e.over=0;e.cold=0;e.meat=0;e.wantT=0});
+}
+function startGame(){audioInit();if(AC&&AC.state==='suspended')AC.resume();demo=false;reset();phase='play';playN++;$('#title').hidden=true;$('#result').hidden=true;$('#hud').hidden=false;usedHint=0}
+function freeSlot(at){const used=new Set(pot.map(p=>p.slot));const fr=[];for(let i=0;i<slots.length;i++)if(!used.has(i))fr.push(i);if(!fr.length)return -1;
+  if(at){let b=fr[0],bd=1e9;for(const i of fr){const d=Math.hypot(PX+slots[i][0]-at[0],PY+slots[i][1]-at[1]);if(d<bd){bd=d;b=i}}return b}   // 指を離した所にいちばん近い空き
+  return fr[Math.random()*fr.length|0]}
+function addFood(id,by,at){
+  const s=freeSlot(at);if(s<0){if(by==null){SND.full();potShake=.3;pop('鍋がいっぱい！',PX,PY-PR-8*S,'#fff');if(!demo)log.full++}return false}
+  if(by==null&&!demo){   // 人が入れた具の記録
+    log.put++;
+    const nowWant=eat.some(e=>e.want===id),nextWant=eat.some(e=>e.next===id);
+    if(!nowWant&&nextWant){log.ahead++;if(id==='daikon')log.aheadDaikon++}
+    if(id==='daikon'&&log.daikonFirst==null)log.daikonFirst=+(tune.time-timeLeft).toFixed(1);
+  }
+  pot.push({id,slot:s,t:0,drop:0,rdy:false});SND.plop();for(let i=0;i<5;i++)bubbles.push({x:slots[s][0]+rnd(-12,12)*S,y:slots[s][1]+rnd(-12,12)*S,t:0,r:rnd(2,5)*S,life:.4});return true;
+}
+const stateOf=p=>p.t<FOOD[p.id].ready?'raw':p.t<FOOD[p.id].over?'good':'over';
+/* 鍋から出した具は煮えない。そのかわり、出してから COOL 秒たつと冷める（v2.6）。生のものは冷めても生 */
+const COOL=3;
+const isCold=p=>(p.out||0)>=COOL&&stateOf(p)!=='raw';
+function pop(txt,x,y,col,big){pops.push({txt,x,y,t:0,col:col||'#fff',big})}
+function serve(p,e,how){
+  pot=pot.filter(q=>q!==p);if(sel===p)sel=null;if(drag&&drag.p===p)drag=null;
+  const st=isCold(p)?'cold':stateOf(p),want=e.want===p.id;let pts=0,txt='';if(!demo)e.ate++;
+  if(how&&!demo){log[how]++;if(st==='good'&&want)log.wait.push((p.t-FOOD[p.id].ready)/tune.speed)}
+  if(st==='good'&&want){pts=30;txt='うまい！';stat.good++;e.good++;e.mood=1;e.busy=1.5;e.want=e.next;e.next=pickWant(e.want);e.wantT=0;SND.good()}
+  else if(st==='good'){pts=10;txt='ありがと';stat.ok++;e.mood=0;e.busy=.9;SND.ok()}
+  else if(st==='raw'){pts=-10;txt=p.id==='niku'?'まだ赤い！':'まだ固い…';stat.raw++;e.raw++;e.mood=-1;e.busy=1.1;SND.bad()}
+  else if(st==='cold'){pts=-5;txt='冷めてる…';stat.cold++;e.cold++;e.mood=-1;e.busy=1.1;SND.bad()}
+  else if(isJii(e)){pts=0;txt='やわらかくていい';stat.jii++;e.mood=1;e.busy=1.3;SND.ok()}
+  else{pts=-5;txt='くたくた…';stat.over++;e.over++;e.mood=-1;e.busy=1.1;SND.bad()}
+  e.moodT=1.4;e.plate={id:p.id,k:Math.min(1,p.t/FOOD[p.id].ready),o:clamp((p.t-FOOD[p.id].over)/4,0,1),t:0};
+  score+=pts;pop(txt,e.x,e.y-34*S,pts>=0?'#FFE9A8':'#FFB4A3');pop(pts===0?'±0':(pts>0?'+':'')+pts,e.x,e.y-54*S,pts>=30?'#F2B84B':pts>=0?'#fff':'#FF8C78',true);
+  if(!demo)$('#hS').textContent=score+'点';
+}
+function plateAt(x,y,rad){let best=null,bd=rad;for(const e of eat){const d=Math.hypot(x-e.x,y-e.y);if(d<bd){bd=d;best=e}}return best}
+function potPos(p){return[PX+slots[p.slot][0],PY+slots[p.slot][1]+Math.sin(T*2+p.slot)*1.5*S]}
+
+/* 自動で配る（タイトルの見本と、難しさの確認用） */
+function bot(dt){
+  botT-=dt;if(botT>0)return;botT=demo?.9:.45;
+  for(const e of eat){if(e.busy>0)continue;const p=pot.find(q=>q.id===e.want&&stateOf(q)==='good');if(p){serve(p,e);return}}
+  const ov=pot.find(q=>stateOf(q)==='over');if(ov&&!demo){const e=eat.find(e=>isJii(e)&&e.busy<=0)||eat.find(e=>e.busy<=0);if(e){serve(ov,e);return}}
+  const need=[];eat.forEach(e=>{need.push(e.want)});eat.forEach(e=>need.push(e.next));
+  for(const id of need){const have=pot.filter(q=>q.id===id&&stateOf(q)!=='over').length,wantN=need.filter(n=>n===id).length;if(have<Math.min(2,wantN)){if(addFood(id,'bot'))return}}
+}
+
+function step(dt){
+  T+=dt;
+  if(phase==='play'||demo){
+    {const held=new Set([sel,drag&&drag.p].filter(Boolean));for(const p of held)p.out=(p.out||0)+dt}
+    for(const p of pot){p.drop=Math.min(1,p.drop+dt*4);if(p===sel||(drag&&drag.p===p))continue;const was=stateOf(p);p.t+=dt*tune.speed;
+      if(was==='raw'&&stateOf(p)==='good'&&!demo)SND.ready()}
+    for(const e of eat){if(e.busy>0){e.busy-=dt;if(e.busy<=0)e.plate=null}if(e.moodT>0){e.moodT-=dt;if(e.moodT<=0)e.mood=0}if(e.plate)e.plate.t+=dt;e.wantT+=dt}
+    if(!demo&&!jiiSaid&&!shout&&pot.some(q=>stateOf(q)==='over')){jiiSaid=true;const j=eat.find(isJii);if(j){shout={e:j,t:0,txt:'くたくたでもいいよ'};SND.shout()}}
+    if(tune.meat&&!demo){meatT-=dt;if(meatT<=0){meatT=rnd(10,14);const e=eat[Math.random()*eat.length|0];
+      if(addFood('niku',e)){stat.meat++;e.meat++;shout={e,t:0,txt:'肉いれるね！'};SND.shout()}else shout={e,t:0,txt:'入んないや'}}}
+    if(demo||tune.bot)bot(dt);
+    if(Math.random()<dt*7){const a=rnd(0,7),rr=Math.sqrt(Math.random())*PR*.8;bubbles.push({x:Math.cos(a)*rr,y:Math.sin(a)*rr,t:0,r:rnd(2,6)*S,life:rnd(.4,.9)});if(Math.random()<.25&&phase==='play')SND.bub()}
+  }
+  if(phase==='play'){
+    timeLeft-=dt;const sec=Math.ceil(timeLeft);
+    if(sec!==lastSec){lastSec=sec;$('#hT').textContent=Math.max(0,sec);if(sec<=5&&sec>0)SND.tick()}
+    $('#hB').style.transform=`scaleX(${clamp(timeLeft/tune.time,0,1)})`;$('#hB').style.background=timeLeft<10?'#D2492F':'#F2B84B';
+    if(timeLeft<=0){phase='end';endT=0;endPot=pot.map(p=>({id:p.id,slot:p.slot,k:Math.min(1,p.t/FOOD[p.id].ready),o:clamp((p.t-FOOD[p.id].over)/4,0,1)}));stat.left=pot.length+(sel?1:0)+(drag?1:0);sel=null;drag=null;SND.end();pop('ごちそうさま！',PX,PY-PR-20*S,'#FFE9A8',true)}
+  }
+  if(phase==='end'){endT+=dt;if(endT>1.3)showResult()}
+  if(demo&&pot.length>5&&Math.random()<dt*.3)pot.shift();
+  for(const p of pops)p.t+=dt;pops=pops.filter(p=>p.t<1);
+  for(const b of bubbles)b.t+=dt;bubbles=bubbles.filter(b=>b.t<b.life);
+  if(shout){shout.t+=dt;if(shout.t>1.6)shout=null}
+  potShake=Math.max(0,potShake-dt);
+}
+
+function showResult(){
+  phase='result';
+  const rank=score>=540?'鍋奉行':score>=360?'よく気がつく人':score>=180?'ふつうの鍋':'みんな、自分で取って';   // 未調整（自動で配ると800〜1100点）
+  $('#rank').textContent=rank;$('#total').innerHTML=`${score}<small> 点</small>`;
+  $('#stats').innerHTML=`<div><b>${stat.good}</b>うまい！</div><div><b>${stat.raw}</b>まだ固い</div><div><b>${stat.over}</b>くたくた</div><div><b>${stat.cold}</b>冷めた</div><div><b>${stat.left}</b>鍋に残った</div>`;
+  const best=eat.slice().sort((a,b)=>b.good-a.good)[0],worst=eat.slice().sort((a,b)=>a.good-b.good)[0];
+  /* 家族のひとこと（最大3つ）。名前の代わりに、話す人の顔を頭に出す（v2.13）
+     v に [話す人, 顔の表情 1/0/-1, せりふ] を積む */
+  const v=[],most=k=>eat.slice().sort((a,b)=>b[k]-a[k])[0],pick=()=>eat[Math.random()*eat.length|0];
+  if(stat.good>=10&&stat.raw+stat.over===0)v.push([best,1,'「ぜんぶ食べごろだった」']);else if(stat.good>=5)v.push([best,1,'「いいところで来た」']);
+  const hungry=eat.find(e=>e.ate===0),noGood=eat.find(e=>e.ate>0&&e.good===0);   // 何も食べていない人／食べたが「うまい！」がない人
+  if(hungry)v.push([hungry,-1,'「まだ何も食べてない…」']);else if(noGood)v.push([noGood,-1,'「ほしいのが来なかった…」']);
+  if(stat.raw>=3)v.push([most('raw'),-1,'「この大根、まだ白いよ」']);if(stat.over>=3)v.push([most('over'),-1,'「春菊、溶けてない？」']);
+  if(stat.jii>=2)v.push([eat.find(isJii),1,'「やわらかくて、ちょうどいい」']);if(stat.cold>=2)v.push([most('cold'),-1,'「これ、冷めてる」']);
+  if(stat.left>=5)v.push([pick(),0,'「鍋、具でいっぱいだね」']);if(stat.meat>=3&&stat.over>=1)v.push([most('meat'),0,'「肉、入れといたのに」']);
+  if(!v.length)v.push([pick(),1,'「シメは、うどんで」']);
+  const box=$('#voice');box.innerHTML='';
+  v.slice(0,3).forEach(([e,mood,line])=>{const row=document.createElement('div'),cc=document.createElement('canvas'),n=Math.round(26*S*DPR);row.className='vl';
+    cc.width=cc.height=n;const g=cc.getContext('2d');g.scale(DPR,DPR);drawFace(g,e.i,13*S,13.8*S,10.2*S,mood);
+    const sp=document.createElement('span');sp.textContent=line;row.append(cc,sp);box.append(row)});
+  lastRank=rank;shareFile=null;
+  const post=`【${rank}】家族の取り皿に、食べごろを ${stat.good}回。${score}点。\n#ぐつぐつ鍋奉行`+(SHARE_URL?`\n${SHARE_URL}`:'');
+  $('#result').dataset.text=post;$('#bX').href='https://x.com/intent/post?text='+encodeURIComponent(post);
+  makeShare();   // 先に作っておく（共有ボタンを押したらすぐ出せるように）
+  $('#result').hidden=false;$('#hud').hidden=true;lockUntil=performance.now()+700;
+}
+function toTitle(){if(performance.now()<lockUntil)return;$('#shareView').hidden=true;phase='title';demo=true;reset();$('#result').hidden=true;$('#title').hidden=false;$('#hud').hidden=true}
+
+/* ---------- 絵：はしでつまんだ具 ----------
+   p があれば煮えぐあいと冷めぐあいを出す：湯気＝まだ温かい、だいだいの輪＝温かさの残り、青い点線＝冷めた */
+function drawPinch(id,x,y,shY,k,o,p){
+  if(p){const f=FOOD[p.id];k=Math.min(1,p.t/f.ready);o=clamp((p.t-f.over)/4,0,1)}
+  c.fillStyle='rgba(0,0,0,.2)';c.beginPath();c.ellipse(x,shY,FR*.9,FR*.4,0,0,7);c.fill();
+  drawFood(c,id,x,y,FR*1.25,k,o);
+  if(p&&stateOf(p)!=='raw'){const warm=1-clamp((p.out||0)/COOL,0,1),rr=FR*1.5;c.lineCap='round';
+    if(warm>0){if(tune.ring){c.strokeStyle='#F28A3C';c.lineWidth=3*S;c.beginPath();c.arc(x,y,rr,-Math.PI/2,-Math.PI/2+warm*Math.PI*2);c.stroke()}
+      c.strokeStyle=`rgba(255,255,255,${.75*warm})`;c.lineWidth=2*S;for(let i=-1;i<=1;i+=2){const ph=(T*1.2+i*.2)%1;c.globalAlpha=1-ph;c.beginPath();c.moveTo(x+i*6*S,y-FR*1.3-ph*10*S);c.quadraticCurveTo(x+i*6*S+4*S,y-FR*1.3-5*S-ph*10*S,x+i*6*S,y-FR*1.3-10*S-ph*10*S);c.stroke()}c.globalAlpha=1}
+    else{c.strokeStyle='rgba(150,190,225,.95)';c.lineWidth=3*S;c.setLineDash([4*S,5*S]);c.beginPath();c.arc(x,y,rr,0,7);c.stroke();c.setLineDash([])}}
+  // はし（右上から）
+  c.strokeStyle='#8A5A36';c.lineWidth=4*S;c.lineCap='round';c.beginPath();c.moveTo(x-5*S,y);c.lineTo(x+34*S,y-60*S);c.moveTo(x+5*S,y+2*S);c.lineTo(x+44*S,y-56*S);c.stroke();
+}
+
+/* ---------- 絵：下の具の皿（遊ぶ画面とタイトルで共通） ---------- */
+function drawTray(g,w,ty,th){
+  g.fillStyle='#2A1C14';g.fillRect(0,ty,w,th);g.fillStyle='#D2492F';g.fillRect(0,ty,w,4*S);
+  const bw=w/6;
+  FIDS.forEach((id,i)=>{const x=bw*i+bw/2,y=ty+th/2+2*S,f=FOOD[id];
+    g.fillStyle='#FFF6E3';g.beginPath();g.roundRect(bw*i+4*S,ty+12*S,bw-8*S,th-22*S,12*S);g.fill();
+    drawFood(g,id,x,y-12*S,17*S,0,0);
+    g.fillStyle='#2A1C14';g.textAlign='center';g.textBaseline='middle';g.font=`900 ${(f.name.length>3?10:12.5)*S}px "Zen Maru Gothic",sans-serif`;g.fillText(f.name,x,y+16*S);
+    g.fillStyle='#8a7a70';g.font=`700 ${9.5*S}px "Zen Maru Gothic",sans-serif`;g.fillText(f.ready+'秒',x,y+30*S)});
+}
+
+/* ---------- 絵：場面 ---------- */
+function draw(){
+  c.setTransform(DPR,0,0,DPR,0,0);
+  // 食卓
+  c.fillStyle='#6B4226';c.fillRect(0,0,W,H);
+  c.strokeStyle='rgba(42,28,20,.22)';c.lineWidth=2*S;for(let y=40*S;y<trayY;y+=74*S){c.beginPath();c.moveTo(0,y);c.lineTo(W,y);c.stroke()}
+  c.fillStyle='rgba(255,220,160,.07)';c.beginPath();c.arc(PX,PY,PR*2.1,0,7);c.fill();
+  // こんろ
+  c.fillStyle='#2B2422';c.beginPath();c.roundRect(PX-PR*1.02,PY-PR*1.02,PR*2.04,PR*2.04,PR*.3);c.fill();
+  c.fillStyle='#F28A3C';for(let i=0;i<12;i++){const a=i*Math.PI/6+T*.5,fl=1.02+Math.sin(T*9+i)*.02;c.beginPath();c.arc(PX+Math.cos(a)*PR*fl,PY+Math.sin(a)*PR*fl,4*S,0,7);c.fill()}
+  const sh=potShake?Math.sin(T*70)*potShake*8*S:0;
+  c.save();c.translate(sh,0);
+  // 土鍋
+  c.fillStyle='#3A2C27';c.strokeStyle='#1E1512';c.lineWidth=3*S;
+  for(const sx of[-1,1]){c.beginPath();c.roundRect(PX+sx*PR*1.06-PR*.13,PY-PR*.2,PR*.26,PR*.4,PR*.1);c.fill();c.stroke()}
+  c.beginPath();c.arc(PX,PY,PR,0,7);c.fill();c.stroke();
+  c.strokeStyle='rgba(255,255,255,.12)';c.lineWidth=4*S;c.beginPath();c.arc(PX,PY,PR*.95,Math.PI*1.1,Math.PI*1.6);c.stroke();
+  const br=c.createRadialGradient(PX,PY,PR*.1,PX,PY,PR*.88);br.addColorStop(0,'#F0D08A');br.addColorStop(1,'#D9A85A');
+  c.fillStyle=br;c.beginPath();c.arc(PX,PY,PR*.86,0,7);c.fill();c.strokeStyle='#1E1512';c.lineWidth=2*S;c.stroke();
+  // 泡
+  for(const b of bubbles){const k=b.t/b.life;c.strokeStyle=`rgba(255,250,230,${.8*(1-k)})`;c.lineWidth=1.5*S;c.beginPath();c.arc(PX+b.x,PY+b.y,b.r*(.4+k),0,7);c.stroke()}
+  // 具
+  for(const p of pot){
+    if(drag&&drag.p===p)continue;
+    const f=FOOD[p.id],[x,y]=potPos(p),st=stateOf(p),k=Math.min(1,p.t/f.ready),o=clamp((p.t-f.over)/4,0,1),isSel=p===sel;
+    const sc=(.6+.4*p.drop)*(st==='good'?1+Math.sin(T*6)*.035:1)*(isSel?1.15:1);
+    if(isSel){c.fillStyle='rgba(255,255,255,.35)';c.beginPath();c.arc(x,y,FR*1.5,0,7);c.fill()}
+    drawFood(c,p.id,x,y-(isSel?6*S:0),FR*sc,k,o);
+    if(tune.ring){const rr=FR*1.22;c.lineWidth=3.2*S;c.lineCap='round';
+      if(st==='raw'){c.strokeStyle='rgba(42,28,20,.28)';c.beginPath();c.arc(x,y,rr,0,7);c.stroke();c.strokeStyle='#fff';c.beginPath();c.arc(x,y,rr,-Math.PI/2,-Math.PI/2+k*Math.PI*2);c.stroke()}
+      else if(st==='good'){const left=1-(p.t-f.ready)/(f.over-f.ready);c.strokeStyle=left<.3?'#F28A3C':'#63D07A';c.beginPath();c.arc(x,y,rr,-Math.PI/2,-Math.PI/2+left*Math.PI*2);c.stroke()}
+      else{c.strokeStyle='rgba(210,73,47,.8)';c.setLineDash([4*S,5*S]);c.beginPath();c.arc(x,y,rr,0,7);c.stroke();c.setLineDash([])}}
+    if(st==='good'){c.strokeStyle='rgba(255,255,255,.75)';c.lineWidth=2*S;for(let i=-1;i<=1;i+=2){const ph=(T*1.2+p.slot*.3+i*.2)%1;c.globalAlpha=1-ph;c.beginPath();c.moveTo(x+i*6*S,y-FR-4*S-ph*10*S);c.quadraticCurveTo(x+i*6*S+4*S,y-FR-9*S-ph*10*S,x+i*6*S,y-FR-14*S-ph*10*S);c.stroke()}c.globalAlpha=1}
+  }
+  c.restore();
+  // 取り皿と人
+  for(const e of eat){
+    const fy=e.y+e.sy*56*S,fr=19*S;
+    const target=(sel||drag)&&e.busy<=0;
+    c.fillStyle='rgba(0,0,0,.2)';c.beginPath();c.arc(e.x,e.y+3*S,39*S,0,7);c.fill();
+    c.fillStyle='#FFFDF6';c.strokeStyle=target?'#F2B84B':K;c.lineWidth=(target?4:2.5)*S;c.beginPath();c.arc(e.x,e.y,37*S,0,7);c.fill();c.stroke();
+    c.strokeStyle='#5E86B8';c.lineWidth=2*S;c.beginPath();c.arc(e.x,e.y,29*S,0,7);c.stroke();
+    if(e.plate){drawFood(c,e.plate.id,e.x,e.y,FR*1.05*Math.min(1,Math.max(.01,e.busy/.3)),e.plate.k,e.plate.o)}
+    // はし
+    c.strokeStyle='#8A5A36';c.lineWidth=3*S;c.lineCap='round';c.beginPath();c.moveTo(e.x-e.sx*20*S,e.y+e.sy*44*S);c.lineTo(e.x-e.sx*52*S,e.y+e.sy*50*S);c.moveTo(e.x-e.sx*20*S,e.y+e.sy*50*S);c.lineTo(e.x-e.sx*52*S,e.y+e.sy*56*S);c.stroke();
+    drawFace(c,e.i,e.x+e.sx*6*S,fy+e.sy*6*S,fr,e.mood);
+    // ふきだし：ほしいもの＋次
+    const bw=64*S,bh=46*S;   // ふきだしは顔のよこ（画面の内側）
+    const fx=e.x+e.sx*6*S,ox=fx-e.sx*(fr+bw/2+7*S),oy=fy+e.sy*6*S;
+    const bob=e.wantT<.3?1+Math.sin(e.wantT/.3*Math.PI)*.15:1;
+    c.save();c.translate(ox,oy);c.scale(bob,bob);
+    /* ふきだしは角丸の箱としっぽを1本の線で描く（つなぎ目に線や段差が出ないように）。しっぽは顔のほう（右なら e.sx=1） */
+    {const L=-bw/2,T=-bh/2,R=bw/2,B=bh/2,r=14*S,tx=e.sx*(bw/2+9*S);c.beginPath();c.moveTo(L+r,T);c.lineTo(R-r,T);c.arcTo(R,T,R,T+r,r);
+      if(e.sx>0){c.lineTo(R,-6*S);c.lineTo(tx,0);c.lineTo(R,6*S)}
+      c.lineTo(R,B-r);c.arcTo(R,B,R-r,B,r);c.lineTo(L+r,B);c.arcTo(L,B,L,B-r,r);
+      if(e.sx<0){c.lineTo(L,6*S);c.lineTo(tx,0);c.lineTo(L,-6*S)}
+      c.lineTo(L,T+r);c.arcTo(L,T,L+r,T,r);c.closePath();c.fillStyle='#fff';c.strokeStyle=K;c.lineWidth=2.5*S;c.lineJoin='round';c.fill();c.stroke()}
+    drawFood(c,e.want,-10*S,0,15*S,1,0);
+    c.globalAlpha=.9;drawFood(c,e.next,21*S,7*S,7.5*S,1,0);c.globalAlpha=1;
+    c.fillStyle='#8a7a70';c.font=`900 ${8.5*S}px "Zen Maru Gothic",sans-serif`;c.textAlign='center';c.textBaseline='middle';c.fillText('次',21*S,-10*S);
+    c.restore();
+    // 具の名前：上の2人はふきだしの下（点数・時間の表示とぶつけない）、下の2人はふきだしの上
+    c.fillStyle='rgba(255,246,227,.85)';c.font=`900 ${10.5*S}px "Zen Maru Gothic",sans-serif`;c.textAlign='center';c.textBaseline='middle';c.fillText(FOOD[e.want].name,ox-10*S,oy-e.sy*(bh/2+9*S));
+  }
+  // 勝手に肉
+  if(shout){const e=shout.e,a=shout.t<.15?shout.t/.15:1-clamp((shout.t-1.2)/.4,0,1);c.globalAlpha=a;c.font=`${17*S}px "Yusei Magic","Zen Maru Gothic",sans-serif`;c.textAlign='center';c.textBaseline='middle';
+    const tw=c.measureText(shout.txt).width+20*S,tx=clamp(e.x,tw/2+8*S,W-tw/2-8*S),ty=e.y-e.sy*54*S;
+    c.fillStyle='#D2492F';c.beginPath();c.roundRect(tx-tw/2,ty-15*S,tw,30*S,15*S);c.fill();c.fillStyle='#fff';c.fillText(shout.txt,tx,ty+1*S);c.globalAlpha=1}
+  // 具の皿（下）
+  drawTray(c,W,trayY,trayH);
+  // 下の皿から持ち上げている新しい具（はしでつまむ。生のまま。鍋の上に来たら鍋のふちが光る）
+  if(add){const x=add.x,y=add.y-30*S,over=inPot(x,y)||inPot(add.x,add.y);
+    if(over){c.strokeStyle='rgba(242,184,75,.9)';c.lineWidth=5*S;c.beginPath();c.arc(PX,PY,PR*.9,0,7);c.stroke()}
+    drawPinch(add.id,x,y,add.y-4*S,0,0,null)}
+  // はしで持っている具（鍋から出した具は鍋に戻せない。皿に置くまで持ったまま）
+  if(sel&&!(drag&&drag.p===sel)){const p=sel,x=selPos[0],y=selPos[1]+Math.sin(T*4)*2*S;drawPinch(p.id,x,y,y+26*S,null,null,p);
+    const t=isCold(p)?'冷めた…':'皿へ';c.font=`900 ${11*S}px "Zen Maru Gothic",sans-serif`;c.textAlign='center';c.textBaseline='middle';const tw=c.measureText(t).width;
+    c.fillStyle='rgba(42,28,20,.85)';c.beginPath();c.roundRect(x-tw/2-7*S,y+FR*1.45+4*S,tw+14*S,17*S,8.5*S);c.fill();c.fillStyle=isCold(p)?'#BFD6EA':'#FFE9A8';c.fillText(t,x,y+FR*1.45+12.5*S)}
+  // つかんでいる具
+  if(drag){const p=drag.p;drawPinch(p.id,drag.x,drag.y-drag.oy,drag.y-6*S,null,null,p)}
+  // 文字
+  c.textAlign='center';c.textBaseline='middle';
+  for(const p of pops){const a=1-clamp((p.t-.6)/.4,0,1);c.globalAlpha=a;c.font=p.big?`${24*S}px "Yusei Magic","Zen Maru Gothic",sans-serif`:`900 ${14*S}px "Zen Maru Gothic",sans-serif`;
+    c.lineWidth=5*S;c.strokeStyle='#2A1C14';c.lineJoin='round';const y=p.y-p.t*18*S,hw=c.measureText(p.txt).width/2+8*S,x=clamp(p.x,hw,W-hw);c.strokeText(p.txt,x,y);c.fillStyle=p.col;c.fillText(p.txt,x,y)}
+  c.globalAlpha=1;
+  // 案内：上の2人の皿と鍋のあいだ（ふきだし・自分の皿と重ねない）。暗い帯の上に書く
+  if(phase==='play'&&usedHint<2&&timeLeft>tune.time-9){
+    const txt=usedHint===0?'下の具を、鍋までスライドして入れる':'煮えた具を、ほしい人の皿へ運ぶ';
+    const hy=(PY-PR*1.02+eat[0].y+37*S)/2,room=(eat[1].x-eat[0].x)-37*S*2-12*S;
+    let fs=12.5*S;c.font=`900 ${fs}px "Zen Maru Gothic",sans-serif`;let tw=c.measureText(txt).width;
+    if(tw>room-20*S){fs*=(room-20*S)/tw;c.font=`900 ${fs}px "Zen Maru Gothic",sans-serif`;tw=c.measureText(txt).width}
+    const ph=fs+10*S;c.fillStyle='rgba(42,28,20,.82)';c.beginPath();c.roundRect(W/2-tw/2-10*S,hy-ph/2,tw+20*S,ph,ph/2);c.fill();
+    c.fillStyle='#FFF6E3';c.fillText(txt,W/2,hy+.5*S)}
+}
+
+/* ---------- 操作：つかんで運ぶ／タップで選んで、皿をタップ ---------- */
+function ptr(e){const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*W/r.width,(e.clientY-r.top)*H/r.height]}
+let pid=null,add=null;   // add＝下の皿から持ち上げている新しい具
+const inPot=(x,y)=>Math.hypot(x-PX,y-PY)<PR*1.0;
+cv.addEventListener('pointerdown',e=>{
+  if(phase!=='play'||pid!==null)return;const[x,y]=ptr(e);
+  if(y>trayY+6*S){const i=clamp(x/(W/6)|0,0,5);pid=e.pointerId;try{cv.setPointerCapture(pid)}catch(_){}add={id:FIDS[i],i,x,y,sx:x,sy:y,moved:false};sel=null;SND.lift();return}
+  if(sel){   // 持っている具：もう一度つかんで運ぶか、皿をタップ。鍋の別の具はつかめない
+    if(Math.hypot(x-selPos[0],y-selPos[1])<FR*1.9){pid=e.pointerId;try{cv.setPointerCapture(pid)}catch(_){}drag={p:sel,x,y,sx:x,sy:y,moved:false,oy:y-selPos[1]};return}
+    const pl=plateAt(x,y,58*S);if(pl&&pl.busy<=0){serve(sel,pl,'tap');usedHint=2;return}
+    if(Math.hypot(x-PX,y-PY)<PR)pop('はしがふさがってる',selPos[0],selPos[1]-FR*1.6,'#FFE9A8');return}
+  let best=null,bd=FR*1.7;for(const p of pot){const[px,py]=potPos(p),d=Math.hypot(x-px,y-py);if(d<bd){bd=d;best=p}}
+  if(best){pot=pot.filter(q=>q!==best);best.out=0;   // 鍋から出した。もう鍋には戻せない
+    pid=e.pointerId;try{cv.setPointerCapture(pid)}catch(_){}drag={p:best,x,y,sx:x,sy:y,moved:false,oy:34*S};SND.lift()}
+});
+cv.addEventListener('pointermove',e=>{if(e.pointerId!==pid)return;if(add){const[x,y]=ptr(e);add.x=x;add.y=y;if(Math.hypot(x-add.sx,y-add.sy)>12*S)add.moved=true;return}if(!drag)return;const[x,y]=ptr(e);drag.x=x;drag.y=y;if(Math.hypot(x-drag.sx,y-drag.sy)>12*S)drag.moved=true});
+const up=e=>{if(e.pointerId!==pid)return;pid=null;
+  if(add){const a=add;add=null;if(phase!=='play')return;const fy=a.y-30*S;   // 具は指の少し上に描いている
+    if(inPot(a.x,fy)||inPot(a.x,a.y)){if(addFood(a.id,null,[a.x,fy])&&usedHint<1)usedHint=1}
+    else if(!a.moved)pop('鍋までスライド！',W/6*a.i+W/12,trayY-14*S,'#FFE9A8');
+    return}
+  if(!drag)return;const d=drag;drag=null;
+  const pl=plateAt(d.x,d.y-20*S,62*S)||plateAt(d.x,d.y,62*S);
+  if(phase!=='play')return;
+  if(d.moved&&pl&&pl.busy<=0){serve(d.p,pl,'drag');usedHint=2;return}
+  sel=d.p;selPos=[clamp(d.x,40*S,W-40*S),clamp(d.y-d.oy,70*S,trayY-40*S)]};   // 皿以外で離したら、はしで持ったまま
+cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+$('#bStart').addEventListener('click',startGame);
+$('#bAgain').addEventListener('click',()=>{if(performance.now()>=lockUntil)startGame()});
+$('#bTitle').addEventListener('click',toTitle);
+$('#bShare').addEventListener('click',shareImage);
+$('#bShareClose').addEventListener('click',()=>$('#shareView').hidden=true);
+const sndLabel=()=>$('#bSnd').textContent=sndOn?'音 ON':'音 OFF';sndLabel();
+$('#bSnd').addEventListener('click',()=>{sndOn=!sndOn;audioInit();try{localStorage.setItem('nabe-snd',sndOn?'1':'0')}catch(e){}sndLabel()});
+
+
+
+
+/* タイトルと結果の絵：真上から見た食卓と鍋（v2.2 タイトル／v2.7 結果も） */
+const tcv=$('#tcv'),tc=tcv.getContext('2d'),rcv=$('#rcv'),rc=rcv.getContext('2d');
+function prep(cvs,g){const w=cvs.clientWidth,h=cvs.clientHeight;if(!w||!h)return null;
+  if(cvs.width!==Math.round(w*DPR)||cvs.height!==Math.round(h*DPR)){cvs.width=Math.round(w*DPR);cvs.height=Math.round(h*DPR)}
+  g.setTransform(DPR,0,0,DPR,0,0);g.fillStyle='#6B4226';g.fillRect(0,0,w,h);
+  g.strokeStyle='rgba(42,28,20,.22)';g.lineWidth=2*S;for(let y=26*S;y<h;y+=74*S){g.beginPath();g.moveTo(0,y);g.lineTo(w,y);g.stroke()}
+  return[w,h]}
+// items：[{id,slot,k,o}]（slot 0=まんなか、1〜6=まわり）　steam：湯気を出すか
+function potArt(g,x,y,R,items,steam){
+  g.fillStyle='rgba(255,220,160,.09)';g.beginPath();g.arc(x,y,R*1.9,0,7);g.fill();
+  g.fillStyle='#2B2422';g.beginPath();g.roundRect(x-R*1.04,y-R*1.04,R*2.08,R*2.08,R*.3);g.fill();
+  if(steam){g.fillStyle='#F28A3C';for(let i=0;i<12;i++){const a=i*Math.PI/6+T*.5;g.beginPath();g.arc(x+Math.cos(a)*R*1.03,y+Math.sin(a)*R*1.03,3.5*S,0,7);g.fill()}}
+  g.fillStyle='#3A2C27';g.strokeStyle='#1E1512';g.lineWidth=3*S;
+  for(const sx of[-1,1]){g.beginPath();g.roundRect(x+sx*R*1.06-R*.13,y-R*.2,R*.26,R*.4,R*.1);g.fill();g.stroke()}
+  g.beginPath();g.arc(x,y,R,0,7);g.fill();g.stroke();
+  const br=g.createRadialGradient(x,y,R*.1,x,y,R*.88);br.addColorStop(0,'#F0D08A');br.addColorStop(1,'#D9A85A');
+  g.fillStyle=br;g.beginPath();g.arc(x,y,R*.86,0,7);g.fill();g.strokeStyle='#1E1512';g.lineWidth=2*S;g.stroke();
+  for(const it of items){const a=(it.slot-1)*Math.PI/3+Math.PI/6,rr=it.slot?R*.56:0;drawFood(g,it.id,x+Math.cos(a)*rr,y+Math.sin(a)*rr+(steam?Math.sin(T*2+it.slot)*1.2*S:0),R*.2*(steam?1+Math.sin(T*5+it.slot)*.03:1),it.k,it.o)}
+  if(steam){g.strokeStyle='rgba(255,255,255,.7)';g.lineWidth=2.5*S;g.lineCap='round';
+    for(let i=0;i<5;i++){const ph=(T*.45+i/5)%1,sx=x+(i-2)*R*.32,sy=y-R*.2-ph*R*1.1;g.globalAlpha=Math.sin(ph*Math.PI)*.8;
+      g.beginPath();g.moveTo(sx,sy);g.quadraticCurveTo(sx+9*S,sy-12*S,sx,sy-24*S);g.quadraticCurveTo(sx-9*S,sy-36*S,sx,sy-48*S);g.stroke()}
+    g.globalAlpha=1}
+}
+const TITLE_POT=['daikon','niku','hakusai','tofu','shiitake','shungiku','niku'].map((id,i)=>({id,slot:i,k:1,o:0}));
+/* タイトル（v2.9）：画面いっぱいの食卓。題字・ひとこと → 鍋 → いただきます／遊び方（HTML のボタン）
+   遊び方と具の一覧は「遊び方」ボタンで開く（#howto） */
+function drawTitle(){const wh=prep(tcv,tc);if(!wh)return;const[w,h]=wh,g=tc;
+  const btnTop=h-26*S-44*S-10*S-52*S;
+  // 題字
+  const t1=Math.max(78*S,h*.13);g.textAlign='center';g.textBaseline='middle';g.lineJoin='round';
+  let tf=52*S;g.font=`${tf}px "Yusei Magic","Zen Maru Gothic",sans-serif`;while(g.measureText('ぐつぐつ鍋奉行').width>w-40*S&&tf>28*S){tf-=1;g.font=`${tf}px "Yusei Magic","Zen Maru Gothic",sans-serif`}   /* 7文字。画面の幅に収める */
+  g.strokeStyle='#2A1C14';g.lineWidth=9*S;g.strokeText('ぐつぐつ鍋奉行',w/2,t1);g.fillStyle='#FFF6E3';g.fillText('ぐつぐつ鍋奉行',w/2,t1);
+  g.font=`900 ${15*S}px "Zen Maru Gothic",sans-serif`;g.lineWidth=5*S;g.strokeText('全員の取り皿に、食べごろを。',w/2,t1+44*S);g.fillStyle='#F2B84B';g.fillText('全員の取り皿に、食べごろを。',w/2,t1+44*S);
+  // 鍋（題字と、ボタンのあいだ）
+  const top=t1+66*S,bot=btnTop-12*S,R=Math.max(40*S,Math.min(w*.33,(bot-top)/2*.82));potArt(g,w/2,(top+bot)/2+8*S,R,TITLE_POT,true);
+}
+/* 結果の絵：火を止めた鍋（残った具）と、四すみの家族。うまい！の数で顔が変わる */
+function drawResult(){const wh=prep(rcv,rc);if(!wh)return;tableArt(rc,wh[0],wh[1])}
+/* 火を止めた鍋と、四すみの家族（結果画面と共有画像で共通。大きさは S で決まる） */
+function tableArt(g,w,h){
+  const R=Math.min(w*.24,h*.27),x=w/2,y=h*.56;potArt(g,x,y,R,endPot,false);
+  const fr=Math.min(24*S,h*.11),dx=Math.min(w*.34,R+70*S),dy=Math.min(h*.5-fr-14*S,R*.95);
+  eat.forEach(e=>{const fx=x+e.sx*dx,fy=y+e.sy*dy,mood=e.good>=3?1:e.good===0?-1:0;
+    drawFace(g,e.i,fx,fy,fr,mood);
+    const t=`うまい！×${e.good}`;   /* 名前は出さない（v2.12） */g.font=`900 ${10.5*S}px "Zen Maru Gothic",sans-serif`;g.textAlign='center';g.textBaseline='middle';const tw=g.measureText(t).width;
+    const ty=fy+fr+12*S,lx=clamp(fx,tw/2+10*S,w-tw/2-10*S);g.fillStyle='rgba(42,28,20,.8)';g.beginPath();g.roundRect(lx-tw/2-7*S,ty-9*S,tw+14*S,18*S,9*S);g.fill();g.fillStyle='#FFF6E3';g.fillText(t,lx,ty+.5*S)});
+}
+/* 遊び方の具の一覧（開くたびに描く） */
+function buildFoods(){const box=$('#foods');box.innerHTML='';FIDS.forEach(id=>{const f=FOOD[id],d=document.createElement('div'),cc=document.createElement('canvas');
+  cc.width=cc.height=Math.round(32*S*DPR);const g=cc.getContext('2d');g.scale(DPR,DPR);drawFood(g,id,16*S,16*S,13*S,1,0);
+  d.append(cc);d.insertAdjacentHTML('beforeend',`<b>${f.name}</b><span>${f.ready}秒</span><em>くたくたは${f.over}秒</em>`);box.append(d)})}
+$('#bHow').addEventListener('click',()=>{buildFoods();$('#howto').hidden=false});
+$('#bHowClose').addEventListener('click',()=>$('#howto').hidden=true);
+$('#howto').addEventListener('click',e=>{if(e.target.id==='howto')$('#howto').hidden=true});
+/* ---------- 共有画像（1200×630）：左に火を止めた鍋と家族、右に称号と点 ---------- */
+const SHARE_URL='https://gutsugutsu-nabebugyo.pages.dev/';   // 公開版では build.py が入れる
+let lastRank='',shareFile=null,shareURL=null,shareBusy=null;
+function fontsReady(){if(!document.fonts||!document.fonts.load)return Promise.resolve();
+  return Promise.race([Promise.all(['64px "Yusei Magic"','900 30px "Zen Maru Gothic"','700 24px "Zen Maru Gothic"'].map(f=>document.fonts.load(f,'ぐつぐつ鍋奉行うまい点'))),new Promise(r=>setTimeout(r,2500))]).catch(()=>{})}
+function makeShare(){shareBusy=fontsReady().then(()=>new Promise(res=>{
+  const cw=1200,ch=630,cv2=document.createElement('canvas');cv2.width=cw;cv2.height=ch;const g=cv2.getContext('2d');
+  const keepS=S;S=630/330;
+  g.fillStyle='#6B4226';g.fillRect(0,0,cw,ch);g.strokeStyle='rgba(42,28,20,.22)';g.lineWidth=4;for(let y=50;y<ch;y+=140){g.beginPath();g.moveTo(0,y);g.lineTo(cw,y);g.stroke()}
+  tableArt(g,630,630);S=keepS;
+  // 右：生成りの紙
+  g.fillStyle='#D2492F';g.beginPath();g.roundRect(640,30,524,564,28);g.fill();g.fillStyle='#FFF6E3';g.beginPath();g.roundRect(640,40,524,554,28);g.fill();
+  const cx=902;g.textAlign='center';g.textBaseline='middle';
+  g.fillStyle='#8a7a70';g.font='900 26px "Zen Maru Gothic",sans-serif';g.fillText('きょうの鍋',cx,100);
+  let fs=60;g.font=`${fs}px "Yusei Magic","Zen Maru Gothic",sans-serif`;while(g.measureText(lastRank).width>460&&fs>30){fs-=2;g.font=`${fs}px "Yusei Magic","Zen Maru Gothic",sans-serif`}
+  g.fillStyle='#D2492F';g.fillText(lastRank,cx,170);
+  g.fillStyle='#2A1C14';g.font='110px "Yusei Magic","Zen Maru Gothic",sans-serif';const sw=g.measureText(String(score)).width;g.font='40px "Yusei Magic","Zen Maru Gothic",sans-serif';const pw=g.measureText('点').width;
+  g.font='110px "Yusei Magic","Zen Maru Gothic",sans-serif';g.textAlign='left';g.fillText(String(score),cx-(sw+pw+8)/2,282);g.font='40px "Yusei Magic","Zen Maru Gothic",sans-serif';g.fillText('点',cx-(sw+pw+8)/2+sw+8,300);
+  const items=[['うまい！',stat.good],['まだ固い',stat.raw],['くたくた',stat.over],['冷めた',stat.cold]];
+  items.forEach(([k,v],i)=>{const bx=676+i*116,by=360;g.fillStyle='#F3E4C4';g.beginPath();g.roundRect(bx,by,104,92,16);g.fill();g.textAlign='center';
+    g.fillStyle='#2A1C14';g.font='900 40px "Zen Maru Gothic",sans-serif';g.fillText(String(v),bx+52,by+38);g.font='900 19px "Zen Maru Gothic",sans-serif';g.fillText(k,bx+52,by+74)});
+  g.textAlign='center';g.fillStyle='#2A1C14';g.font='44px "Yusei Magic","Zen Maru Gothic",sans-serif';g.fillText('ぐつぐつ鍋奉行',cx,494);
+  g.fillStyle='#8a7a70';g.font='700 22px "Zen Maru Gothic",sans-serif';g.fillText('#ぐつぐつ鍋奉行',cx,SHARE_URL?540:552);if(SHARE_URL){g.font='700 19px "Zen Maru Gothic",sans-serif';g.fillText(SHARE_URL.replace(/^https?:\/\//,'').replace(/\/$/,''),cx,570)}
+  cv2.toBlob(b=>{shareFile=b?new File([b],'gutsugutsu-nabebugyo.png',{type:'image/png'}):null;if(shareURL)URL.revokeObjectURL(shareURL);shareURL=b?URL.createObjectURL(b):null;res()},'image/png');
+}))}
+async function shareImage(){
+  if(shareBusy)await shareBusy;if(!shareFile)return;
+  const text=$('#result').dataset.text;
+  try{if(navigator.canShare&&navigator.canShare({files:[shareFile]})){await navigator.share({files:[shareFile],text});return}}catch(e){if(e&&e.name==='AbortError')return}
+  $('#shareImg').src=shareURL;$('#shareView').hidden=false;   // 共有シートが使えないときは、画像を出して長押しで保存
+}
+let last=0;
+function frame(now){const dt=Math.min(.05,(now-last)/1000||0);last=now;step(dt);draw();if(!$('#title').hidden)drawTitle();if(!$('#result').hidden)drawResult();requestAnimationFrame(frame)}
+window.addEventListener('resize',fit);if(window.visualViewport)window.visualViewport.addEventListener('resize',fit);
+fit();reset();requestAnimationFrame(frame);
+</script>
+</body>
+</html>
